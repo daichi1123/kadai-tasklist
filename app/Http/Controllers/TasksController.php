@@ -30,6 +30,10 @@ class TasksController extends Controller
      */
     public function create()
     {
+        $request->validate([
+           'content' => 'required|max:10' 
+        ]);
+        
         $task = new Task;
 
         // メッセージ作成ビューを表示
@@ -46,6 +50,7 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
+        
         // メッセージを作成
         $task = new Task;
         $task->content = $request->content;
