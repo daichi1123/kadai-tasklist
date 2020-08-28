@@ -68,11 +68,17 @@ class TasksController extends Controller
      */
     public function show($id)
     {
+        
         // idの値でメッセージを検索して取得
         $task = Task::findOrFail($id);
+        
+        $user->loadRelationshipCounts();
+        
+        $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
 
         // メッセージ詳細ビューでそれを表示
         return view('tasks.show', [
+            'user' =>$user,
             'task' => $task,
         ]);
     }
